@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { ApiService } from "../services/api.service";
-import { Booking } from "../type/booking";
+import { Router, ActivatedRoute } from "@angular/router";
+
+import { AlertController, LoadingController } from "@ionic/angular";
+
+import { ApiService } from "../../services/api.service";
+import { Booking } from "../../type/booking";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
   adminEmail: string = 'testapis@tuten.cl';
   userEmail:  string = 'contacto@tuten.cl';
@@ -15,7 +20,11 @@ export class HomePage {
   booking: Booking;
   bookings = [];
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    public router: Router,
+    public loadingController: LoadingController
+    ) {}
 
   getToken() {
     this.api.getAccessToken(this.adminEmail)
@@ -31,6 +40,12 @@ export class HomePage {
       .subscribe(data => {
         this.processData(data);
       });
+  }
+
+  showInfo(bookingId) {
+    let user =  this.bookings.filter(booking => booking.bookingId ==  bookingId)
+    
+    this.router.navigate(['/user-details', user]);
   }
 
   processData(rawData: any) {
