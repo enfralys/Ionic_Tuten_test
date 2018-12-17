@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <cdk-virtual-scroll-viewport cdkDropList itemSize="20" class="example-viewport">
+    <ion-item *cdkVirtualFor="let b of bookings" class="example-item" cdkDrag>
+      <ion-icon name="desktop" slot="start"></ion-icon>
+      {{b.firstName}} {{b.lastName}}
+      <div class="item-note" slot="end">
+        {{b.bookingPrice | currency}}
+      </div>
+    </ion-item>
+  </cdk-virtual-scroll-viewport>
+</ion-content>
