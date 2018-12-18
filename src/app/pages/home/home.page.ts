@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { NavController } from "@ionic/angular";
 
-import { AlertController, LoadingController } from "@ionic/angular";
-
+import { UserDetailService } from "../../services/user-detail.service";
 import { ApiService } from "../../services/api.service";
 import { Booking } from "../../type/booking";
 
@@ -22,8 +21,8 @@ export class HomePage {
 
   constructor(
     private api: ApiService,
-    public router: Router,
-    public loadingController: LoadingController
+    public navCtrl: NavController,
+    public userDetailService: UserDetailService
     ) {}
 
   getToken() {
@@ -42,10 +41,13 @@ export class HomePage {
       });
   }
 
-  showInfo(bookingId) {
-    let user =  this.bookings.filter(booking => booking.bookingId ==  bookingId)
+  showInfo(user) {
+    this.userDetailService.setData(user);
+    this.navCtrl.navigateForward('/user-details');
     
-    this.router.navigate(['/user-details', user]);
+    // let user =  this.bookings.filter(booking => booking.bookingId ==  bookingId)
+    
+    // this.router.navigate(['/user-details', user]);
   }
 
   processData(rawData: any) {
