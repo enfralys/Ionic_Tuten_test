@@ -1,1 +1,28 @@
-h2, p { margin-bottom: 0;}
+h2,
+h3,
+p { 
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+
+  p {
+    font-size: 0.9rem;
+    color: var(--ion-color-dark-tint, #666);
+  }
+
+  &--direction { 
+    padding: 0.5rem 0;
+    flex-wrap: wrap;
+
+    p { margin-top: 0.25rem; }
+  }
+}
