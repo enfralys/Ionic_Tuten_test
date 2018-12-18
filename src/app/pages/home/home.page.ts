@@ -16,7 +16,7 @@ export class HomePage {
   userEmail:  string = 'contacto@tuten.cl';
   token: string;
 
-  booking: Booking;
+  booking: Booking ;
   bookings = [];
 
   constructor(
@@ -33,6 +33,21 @@ export class HomePage {
         this.getUsersData();
     })
   }
+
+  getSearch(bookings: any[], searchText: string): any[]{
+    if (!bookings) return [];
+
+    if (!searchText) return bookings;
+searchText = searchText.toLowerCase()
+  return  bookings.filter(booking => {
+    console.log("aca paso")
+    return JSON.stringify(booking.bookingId).toLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1
+
+    });
+  }
+
+
+
 
   getUsersData() {
     this.api.getUsersData(this.userEmail, this.token)
