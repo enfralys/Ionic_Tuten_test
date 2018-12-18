@@ -15,7 +15,7 @@ export class HomePage {
   adminEmail: string = 'testapis@tuten.cl';
   userEmail:  string = 'contacto@tuten.cl';
   token: string;
-
+items = [];
   booking: Booking ;
   bookings = [];
 searchText: string =''
@@ -23,7 +23,10 @@ searchText: string =''
     private api: ApiService,
     public navCtrl: NavController,
     public userDetailService: UserDetailService
-    ) {}
+   
+    ) {
+    this.inicial()
+    }
 
   getToken() {
     this.api.getAccessToken(this.adminEmail)
@@ -69,23 +72,60 @@ searchText: string =''
       this.booking.streetAddress = bookingFields["location"]["streetAddress"];
     
       this.bookings.push(this.booking);
+    
     }    
   }
-  filterItems(searchbar){
-    var q = searchbar.srcElement.value;
-    if (!q) {
-      return;
-    }
-    
-    this.bookings.filter((v)=>{
-      if(v.bookingId && q) {
-        if (v.bookingId.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-          return true;
-        }
-        return false;
-      }
-    })
+  
+  
+
+
+
+
+
+
+
+
+inicial(){
+  this.items=this.bookings
 }
+
+
+
+
+
+ 
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    
+this.inicial()
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (JSON.stringify(item.bookingId).toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
