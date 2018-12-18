@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router  } from '@angular/router';
-
-import { NavParams } from "@ionic/angular";
-
 import { UserDetailService } from "../../services/user-detail.service";
 
 @Component({
@@ -16,9 +12,7 @@ export class UserDetailsPage implements OnInit {
   constructor(
     private userDetailService: UserDetailService
   ) { 
-    this.userInfo = this.userDetailService.getData();
-    console.log(this.userInfo);
-    
+    this.userInfo = this.userDetailService.getData();    
   }
 
   ngOnInit() {
