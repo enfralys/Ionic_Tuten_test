@@ -18,7 +18,7 @@ export class HomePage {
 
   booking: Booking ;
   bookings = [];
-
+searchText: string =''
   constructor(
     private api: ApiService,
     public navCtrl: NavController,
@@ -34,17 +34,6 @@ export class HomePage {
     })
   }
 
-  getSearch(bookings: any[], searchText: string): any[]{
-    if (!bookings) return [];
-
-    if (!searchText) return bookings;
-searchText = searchText.toLowerCase()
-  return  bookings.filter(booking => {
-    console.log("aca paso")
-    return JSON.stringify(booking.bookingId).toLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1
-
-    });
-  }
 
 
 
@@ -82,6 +71,24 @@ searchText = searchText.toLowerCase()
       this.bookings.push(this.booking);
     }    
   }
+  filterItems(searchbar){
+    var q = searchbar.srcElement.value;
+    if (!q) {
+      return;
+    }
+    
+    this.bookings.filter((v)=>{
+      if(v.bookingId && q) {
+        if (v.bookingId.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    })
+}
+
+
+
 
   ngOnInit() { this.getToken(); }
 }
